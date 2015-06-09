@@ -1,0 +1,69 @@
+<section class="content-container" ng-controller="LocationBookingShowCtrl" ng-show="locationBooking">
+    <h2>
+        Visa Lokal/Plats-bokning
+        <img data-loading class="data-pre-loader" ng-show="showPreLoader" src="img/preloader_cogs.gif">
+    </h2>
+    <page-header-buttons
+            show-calendar="true"
+            show-list="true"
+            show-add="true"
+    ></page-header-buttons>
+
+    <div class="show-container">
+
+        <h3>{{locationBooking.LocationName}}</h3>
+
+        <img class="show-image" ng-src="{{locationBooking.LocationImageSrc}}" ng-show="locationBooking.LocationImageSrc">
+
+        <table class="show-table">
+            <tr>
+                <th>Starttid</th>
+                <td>{{locationBooking.StartTime | date: 'yyyy-MM-dd \k\l HH:mm'}}</td>
+            </tr>
+            <tr>
+                <th>Sluttid</th>
+                <td>{{locationBooking.EndTime | date: 'yyyy-MM-dd \k\l HH:mm'}}</td>
+            </tr>
+            <tr>
+                <th>Preliminär</th>
+                <td>{{locationBooking.Provisional | boolean}}</td>
+            </tr>
+            <tr>
+                <th>Lokal</th>
+                <td><a ng-href="#/platser/visa/{{locationBooking.LocationId}}">{{locationBooking.LocationName}}</a></td>
+            </tr>
+            <tr>
+                <th>Möblering</th>
+                <td>{{locationBooking.FurnituringName}}</td>
+            </tr>
+            <tr>
+                <th>Antal personer</th>
+                <td>{{locationBooking.NumberOfPeople | count}}</td>
+            </tr>
+            <tr>
+                <th>Max personer</th>
+                <td>{{locationBooking.MaxPeople | count}}</td>
+            </tr>
+            <tr>
+                <th>Lediga platser</th>
+                <td>{{locationBooking.MaxPeople-locationBooking.NumberOfPeople | count}}</td>
+            </tr>
+            <tr>
+                <th>Marginal i minuter efter bokning</th>
+                <td>{{locationBooking.MinutesMarginAfterBooking | minutes}}</td>
+            </tr>
+            <tr>
+                <th>Uträknat bokningspris</th>
+                <td>{{locationBooking.CalculatedBookingPrice | kr}}</td>
+            </tr>
+            <tr>
+                <th>Alternativ</th>
+                <td><div class="place-left" item-action-buttons="locationBooking.LocationBookingId"></div></td>
+            </tr>
+        </table>
+
+    </div>
+
+    <button back-button>Tillbaka</button>
+</section>
+

@@ -1,0 +1,107 @@
+<section class="content-container" ng-controller="StartCtrl">
+    <h2>
+        Välkommen till bokningssystemet
+        <img data-loading class="data-pre-loader" ng-show="showPreLoader" src="img/preloader_cogs.gif">
+    </h2>
+
+    <div ng-show="emptyBookings.count">
+        <span class="info info bg-light-blue">Det finns {{emptyBookings.count | count}} tomma bokningstillfällen. <a href="#/bokningstillfallen/tomma">Visa</a></span>
+    </div>
+
+    <div class="small-container">
+        <h3>Vad vill du göra?</h3>
+
+        <a class="button" href="#/bokningstillfallen/skapa">Skapa ett nytt bokningstillfälle</a>
+        <a class="button" href="#/lokalbokningar/skapa">Boka en lokal</a>
+        <a class="button" href="#/kunder/skapa">Lägg till kund</a>
+
+    </div>
+
+    <div class="small-container">
+        <h3>Dagens bokningar</h3>
+
+        <div ng-show="noBookingsForTodayFound">
+            <span class="info bg-light-blue">Inga bokningar hittades för idag</span>
+        </div>
+
+        <table class="list-table" ng-show="bookingsForToday.length">
+            <tr>
+                <th>Bokningstillfälle</th>
+                <th>Starttid</th>
+                <th>Sluttid</th>
+                <th>Preliminär</th>
+                <th>Bokningstyp</th>
+                <th>Kund</th>
+                <th>Personer</th>
+                <th>Antal bokningar</th>
+                <th></th>
+            </tr>
+
+            <tr ng-repeat="booking in bookingsForToday">
+                <td class="align-left" ng-class="{'empty-string': !booking.Name.length}">{{booking.Name | emptyString}}</td>
+                <td class="date align-left">{{booking.StartTime | date: 'HH:mm' }}</td>
+                <td class="date align-left">{{booking.EndTime | date: 'HH:mm'}}</td>
+                <td>{{booking.Provisional | boolean}}</td>
+                <td>{{booking.BookingTypeName}}</td>
+                <td ng-class="{'empty-string': !booking.CustomerName.length}">
+                    <a ng-href="#/kunder/visa/{{booking.CustomerId}}">{{booking.CustomerName}}</a>
+                </td>
+                <td class="align-right">{{booking.NumberOfPeople | count}}</td>
+                <td class="align-right">{{booking.LocationBookings.length | count}}</td>
+                <td class="align-right">
+                    <div item-action-buttons="booking.BookingId" object-type="bokningstillfallen"></div>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+    <div class="small-container">
+        <h3>Lokaler utan bokningar idag</h3>
+
+        <div ng-show="noLocationsFreeForTodayFound">
+            <span class="info bg-light-blue">Inga lediga lokaler hittades för idag</span>
+        </div>
+
+        <table class="list-table" ng-show="locationsFreeForToday.length">
+            <tr>
+                <th>Namn</th>
+                <th>Max personer</th>
+                <th>Pris per timme</th>
+                <th></th>
+            </tr>
+
+            <tr ng-repeat="location in locationsFreeForToday">
+                <td class="align-left">
+                    {{location.Name}}
+                </td>
+                <td class="align-right">
+                    {{location.MaxPeople | count}}
+                </td>
+                <td class="align-right">
+                    {{location.BookingPricePerHour | kr}}
+                </td>
+                <td class="align-right">
+                    <div item-action-buttons="location.LocationId" object-type="platser" booking-type="lokalbokningar" render-book-icon="true"></div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+    <!-- Future content
+
+    <div class="half-container">
+        <h3>De 5 senaste bokningarna</h3>
+    </div>
+
+    <div class="half-container">
+        <h3>De 5 bästa kunderna</h3>
+    </div>
+
+    <div class="half-container">
+        <h3>De mest bokade lokalerna</h3>
+    </div>
+    -->
+
+</section>

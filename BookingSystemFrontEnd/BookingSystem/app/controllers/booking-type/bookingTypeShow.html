@@ -1,0 +1,47 @@
+<section class="content-container" ng-controller="BookingTypeShowCtrl" ng-show="bookingType">
+    <h2>
+        Visa Bokningstyp
+        <img data-loading class="data-pre-loader" ng-show="showPreLoader" src="img/preloader_cogs.gif">
+    </h2>
+    <page-header-buttons
+            show-list="true"
+            show-add="true"
+    ></page-header-buttons>
+
+    <div class="show-container">
+
+        <h3>{{bookingType.Name}}</h3>
+
+        <table class="show-table">
+            <tr>
+                <th>Namn</th>
+                <td>{{bookingType.Name}}</td>
+            </tr>
+            <tr>
+                <th>Har lokal/plats</th>
+                <td>{{bookingType.HasLocation | boolean}}</td>
+            </tr>
+            <tr>
+                <th>Marginial i minuter före bokning</th>
+                <td>{{bookingType.MinutesMarginBeforeBooking | minutes}}</td>
+            </tr>
+            <tr>
+                <th>Marginial i minuter efter bokning</th>
+                <td>{{bookingType.MinutesMarginAfterBooking | minutes}}</td>
+            </tr>
+            <tr>
+                <th>Antal bokningar</th>
+                <td>{{bookingType.BookingTypeCount | count}}</td>
+            </tr>
+            <tr>
+                <th>Alternativ</th>
+                <td><div class="place-left" item-action-buttons="bookingType.BookingTypeId"></div></td>
+            </tr>
+        </table>
+
+    </div>
+
+    <button back-button>Tillbaka</button>
+
+</section>
+
